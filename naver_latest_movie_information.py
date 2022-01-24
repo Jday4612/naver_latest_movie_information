@@ -9,7 +9,7 @@ if response.status_code == 200:
     data = soup.select("#content > div.article > div:nth-child(1) > div.lst_wrap > ul > li")
     for item in data:
         image = item.select_one('img').get('src')
-        link = item.select_one('a').get('href')
+        link = item.select_one('a').get('href').split('=')[1]
         title = item.select_one('img').get('alt')
         film_rate = item.select_one('span').text
         ticket_sales = item.select_one('span.num:nth-child(1)').text + "%"
@@ -31,14 +31,14 @@ if response.status_code == 200:
             cast = ' '.join(item.select_one('dd:nth-child(6)').text.split())
 
         print("영화 포스터 : ", image)
-        print("url       : ", link)
+        print("url       : ", "https://movie.naver.com/movie/bi/mi/basic.naver?code=" + link)
         print("영화 제목   : ", title)
-        print("등급       : ", film_rate)
-        print("예매율      : ", ticket_sales)
-        print("평점       : ", rating)
         print("장르       : ", genre)
-        print("상영 시간   : ", showtimes)
+        print("등급       : ", film_rate)
         print("개봉 날짜   : ", release)
+        print("상영 시간   : ", showtimes)
+        print("평점       : ", rating)
+        print("예매율      : ", ticket_sales)
         print("감독       : ", director)
         print("출연       : ", cast)
         print("*-----------------------------------------------------------------------*")
